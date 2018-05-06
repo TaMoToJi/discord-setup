@@ -30,13 +30,12 @@ client.on("message", async message => {
   const command = args.shift().toLowerCase();
   
   
-  if(command === "getalt") {
+  if(command === "getalts") {
   if (message.author.bot) return;
   if (message.channel.type == "dm") return;
    message.author.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
-   message.channel.send(`📱 ${message.author.tag} **Please Check Your DM** :postbox: `).then(msg => msg.delete({timeout: 5000}));
-   message.delete(3000)
-   message.react("📌")
+   message.channel.send(`📱 ${message.author.tag} **Please Check Your DM** :postbox: `).then(msg => msg.delete({timeout: 10000}));
+   message.react("📌");
 } 
 
   if(command === "gif") {
