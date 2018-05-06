@@ -5,19 +5,36 @@ const client = new Discord.Client();
 const PREFIX = "l!";
 
 const config = require("./config.json");
+const talkedRecently = new Set();
+const responses = [
+   'Alt is Coming Soon',
+   'https://discord.gg/7mS9GEY',
+   'Support My Server And Get Minecraft Alt',
+   '500x Minecraft Account Unbanned Everywhere » From Minecraft.net',
+   'Invite 30 People For Bot !'
+]
+
 
 client.on("ready", () => {
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
-  client.user.setActivity(`TEST CODE`);
+  client.user.setActivity(`Free 500alts`);
 });
 
 client.on("message", async message => {
+  if (talkedRecently.has(message.author.id)) {
+  message.channel.send("**Wait 23\h Before Getting Typing This Again.** - " + message.author);
+    } else {
   if(message.author.bot) return;
   if(message.content.indexOf(config.prefix) !== 0) return;
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   
   
+  if(command === "getalt") {
+   message.author.sand(`${responses[Math.floor(Math.random() * responses.length)]}`);
+   message.delete(1000)
+   message.react("📌")
+} 
 
   if(command === "gif") {
   if (message.author.bot) return;
@@ -139,6 +156,13 @@ client.on("message", async message => {
     message.channel.bulkDelete(fetched)
       .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
   }
+
+       talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 99999);
+    }
 
 });
 
