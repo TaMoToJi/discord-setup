@@ -4,7 +4,7 @@ const config = require("./config.json"); // New Discord Client
 const prefix = '!'; // Commands Prefix
 
 client.on('ready', () => { // Ready Event
-  console.log('Bot has started!');
+  console.log(`Bot is Online | Ping ${client.ping} | on ${client.guilds.size} `);
 });
 
 client.on('message', message => { // Message Event
