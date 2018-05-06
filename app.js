@@ -1,6 +1,8 @@
+const gifSearch = require("gif-search");
 const figlet = require('figlet');
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const PREFIX = "l!";
 
 const config = require("./config.json");
 
@@ -9,23 +11,32 @@ client.on("ready", () => {
   client.user.setActivity(`TEST CODE`);
 });
 
-client.on("guildCreate", guild => {
-  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-  client.user.setActivity(`Serving ${client.guilds.size} servers`);
-});
-
-client.on("guildDelete", guild => {
-  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-  client.user.setActivity(`Serving ${client.guilds.size} servers`);
-});
-
-
 client.on("message", async message => {
   if(message.author.bot) return;
   if(message.content.indexOf(config.prefix) !== 0) return;
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   
+  if(command === "gif") {
+  if (message.author.bot) return;
+  if (message.channel.type == "dm") return;
+
+    if (!args[0]) return message.channel.send("`"+PREFIX+"gif <gname>`");
+
+    gifSearch.random(args[0]).then(
+        gifUrl => {
+
+        let randomcolor = ((1 << 24) * Math.random() | 0).toString(16) //Optional
+        var embed = new Discord.RichEmbed()
+            .setColor(`#${randomcolor}`)
+            .setImage(gifUrl)
+        message.author.send(embed);
+    });
+
+    message.channel.send(`<@${message.author.id}> **check your dm!** :postbox:`);
+
+}
+
   if(command === "ascii") {
   message.delete(5000);
   message.react("✅");
