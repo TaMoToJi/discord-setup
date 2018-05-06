@@ -29,13 +29,6 @@ hook.send('📡 `KhmerEmpire-Beta` Restarting Successfully..');
 
 const talkedRecently = new Set();
 
-async function getUUID (name) {
-	let json = await request( { uri: `https://api.mojang.com/users/profiles/minecraft/${name}?at=${moment().format('x')}`, json: true } );
-	if (!json || json.error) return undefined;
-	else return json.id;
-}
-
-
 client.commands = new Discord.Collection();
 
 client.on("guildCreate", async guild => {
@@ -71,11 +64,7 @@ client.on("ready", () => {
 
 client.on("message", async message => {
 
-  if(message.author.bot) return;
- 
-       if (talkedRecently.has(message.author.id)) {
-            message.channel.send("**Wait 20 Second Before Getting Typing This Again.** - " + message.author);
-    } else {
+   if(message.author.bot) return;
    if(message.content.indexOf(config.prefix) !== 0) return;
    let mutedrole = message.guild.roles.find("name", "KE-Muted");
 
