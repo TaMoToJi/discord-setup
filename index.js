@@ -1,7 +1,7 @@
 const Discord = require('discord.js'); // Discrd.JS package
 const client = new Discord.Client();
 const config = require("./config.json"); // New Discord Client
-const prefix = '!'; // Commands Prefix
+const prefix = '//'; // Commands Prefix
 
 client.on('ready', () => { // Ready Event
   console.log(`Bot is Online | Ping ${client.ping} | on ${client.guilds.size} `);
