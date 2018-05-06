@@ -37,8 +37,8 @@ client.on('message', message => { // Message Event
   let command = args.shift().toLowerCase(); // Shift arguments to lower case
   
   try {
-    let commands = require(`./command/${command}.js`);
-    commands.run(client, message, args);
+    let command = require(`./command/${command}.js`);
+    command.run(client, message, args);
   } catch (e) {
     console.log(e.stack)
   } finally {
