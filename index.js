@@ -1,5 +1,6 @@
 const Discord = require('discord.js'); // Discrd.JS package
-const client = new Discord.Client(); // New Discord Client
+const client = new Discord.Client();
+const config = require("./config.json"); // New Discord Client
 const prefix = '!'; // Commands Prefix
 
 client.on('ready', () => { // Ready Event
