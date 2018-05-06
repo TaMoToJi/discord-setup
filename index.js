@@ -24,4 +24,4 @@ client.on('message', message => { // Message Event
   }
 });
 
-client.login(process.env.SECRET); // My token is hidden
+client.login(config.token); // My token is hidden
