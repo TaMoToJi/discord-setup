@@ -1,0 +1,11 @@
+const Discord = require('discord.js');
+
+exports.run = (client, message, args) => {
+  if (message.author.id !== ('356510829920780289')) return message.channel.send("**You Can\'t Change Watching BOT Only | TaMoToJiᵛᵉʳᶦᶠᶦᵉᵈ#5881**");
+  const status = args.join(' ');
+  if (status.length === 0) {
+    const embed = new Discord.RichEmbed()
+      .setColor("#7289DA")
+      .setDescription(`🚫 ${config.prefix}setwatching [status]!`);
+    message.channel.send({ embed });
+  }
