@@ -1,20 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Explore
- @TaMoToJi
-Sign out
-0
-1 0 TaMoToJi/ke-beta
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-ke-beta/app.js
-13e6891  3 hours ago
-@TaMoToJi TaMoToJi Update app.js
-     
-932 lines (802 sloc)  40.4 KB
 const yt = require('ytdl-core');
 const hastebin = require('hastebin-gen');
 const pms = require('parse-ms');
