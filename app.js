@@ -48,7 +48,8 @@ client.on("message", async message => {
     const collector1 = pollTitle.createReactionCollector(filter1, { time: 15000 });
       collector1.on('collect', r => console.log(`Collected ${r.emoji.name}`));
       collector1.on('end', collected => console.log(`Collected ${collected.size} items`));
-});
+  }
+}
   
   if(command === "getalts") {
   if (message.author.bot) return;
