@@ -34,8 +34,8 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (message.channel.type == "dm") return;
    message.author.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
-   message.channel.send(`📱 **Please Check Your DM** :postbox: `);
-   message.delete(1000)
+   message.channel.send(`📱 **Please Check Your DM** :postbox: `).then(msg => msg.delete({timeout: 1000}));
+   message.delete(3000)
    message.react("📌")
 } 
 
@@ -164,7 +164,7 @@ client.on("message", async message => {
         setTimeout(() => {
           // Removes the user from the set after a minute
           talkedRecently.delete(message.author.id);
-        }, 99999);
+        }, 999999);
     }
 
 });
