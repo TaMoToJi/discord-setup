@@ -25,7 +25,7 @@ setInterval(setActivity, 1000 * 60 * 2)
 
 
 client.on('ready', () => { // Ready Event
-  console.log(`Bot is Online | Ping ${client.ping} | on ${client.guilds.size} `);
+  console.log(`Bot is Online | on ${client.guilds.size} `);
 });
 
 client.on('message', message => { // Message Event
@@ -37,7 +37,7 @@ client.on('message', message => { // Message Event
   let command = args.shift().toLowerCase(); // Shift arguments to lower case
   
   try {
-    let commands = require(`./commands/${command}.js`);
+    let commands = require(`../commands/${command}.js`);
     commands.run(client, message, args);
   } catch (e) {
     console.log(e.stack)
