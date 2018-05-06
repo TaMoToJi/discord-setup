@@ -1,0 +1,20 @@
+{
+  "name": "your-name",
+  "version": "0.0.1",
+  "description": "Description here",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  },
+  "engines": {
+    "node": "9.x"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
