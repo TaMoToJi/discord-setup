@@ -31,7 +31,10 @@ client.on("message", async message => {
   
   
   if(command === "getalt") {
-   message.author.sand(`${responses[Math.floor(Math.random() * responses.length)]}`);
+  if (message.author.bot) return;
+  if (message.channel.type == "dm") return;
+   message.author.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
+   message.channel.send(`📱 **Please Check Your DM** :postbox: `);
    message.delete(1000)
    message.react("📌")
 } 
