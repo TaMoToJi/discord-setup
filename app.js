@@ -19,10 +19,11 @@ client.on("message", async message => {
   
   
   if(command === "ping") {
-const newemb = new Discord.RichEmbed()
-.setColor(0xFFBF00)
-.addField('```Ping```', new Date().getTime() - message.createdTimestamp + " ms ")
-message.channel.send({embed: newemb})
+    const newemb = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setDescription(`Ping | ${Date.now() - message.createdTimestamp} ms`)
+    message.channel.send({embed: newemb})
+    message.react("✅")
 }
 
   if(command === "gif") {
