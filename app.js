@@ -18,13 +18,6 @@ client.on("message", async message => {
   const command = args.shift().toLowerCase();
   
   
-  if(command === "ping") {
-    const newemb = new Discord.RichEmbed()
-    .setColor('RANDOM')
-    .setDescription(`Ping | ${Date.now() - message.createdTimestamp} ms`)
-    message.channel.send({embed: newemb})
-    message.react("✅")
-}
 
   if(command === "gif") {
   if (message.author.bot) return;
@@ -57,9 +50,12 @@ client.on("message", async message => {
 };
   
   if(command === "ping") {
-    const m = await message.channel.send("Ping?");
-    m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
-  }
+     const newemb = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setDescription(`Ping | ${Date.now() - message.createdTimestamp} ms`)
+    message.channel.send({embed: newemb})
+    message.react("✅")
+}
   
   if(command === "say") {
     const sayMessage = args.join(" ");
@@ -67,6 +63,41 @@ client.on("message", async message => {
     message.channel.send(sayMessage);
   }
   
+  if(command === "addrole") {
+  if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send("**You don't have premmsions to do that!**");
+  let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
+  if(!args[0]) return message.channel.send('**Mention a user, and type a role to give to the user.** `ium addrole <user> <role>`')
+  if(!rMember) return message.channel.send("**User not found.** `PREFIX addrole <user> <role>`");
+  let role = args.join(" ").slice(22);
+  if(!role) return message.channel.send("**Specify a role!** `PREFIX addrole <user> <role>`");
+  let gRole = message.guild.roles.find(`name`, role);
+  if(!gRole) return message.channel.send("**Role not found.** `PREFIX addrole <user> <role>`");
+
+  if(rMember.roles.has(gRole.id)) return message.channel.send("This user already has that role.");
+  await(rMember.addRole(gRole.id));
+
+  message.channel.send(`**${rMember}** has the role **${gRole.name}** now!`)
+  message.delete(800);
+}
+  
+  if(command === "removerole") {
+  if(!message.member.hasPermissions("MANAGE_ROLES")) return message.reply("You do not have permission to do that!");
+  let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
+  if(!rMember) return message.reply("User not found.");
+  let role = args.join(" ").slice(22);
+  if(!role) return message.reply("Specify a role!");
+  let gRole = message.guild.roles.find(`name`, role);
+  if(!gRole) return message.reply("Role not found.");
+
+  if(!rMember.roles.has(gRole.id)) return message.reply("This user doesn't have that role.");
+  await(rMember.removeRole(gRole.id));
+
+  await message.channel.send(`**${rMember} deos not have the role, ${gRole.name} anymore!**`)
+
+  message.delete();
+
+}  
+
   if(command === "kick") {
     if(!message.member.roles.some(r=>["Administrator", "Moderator"].includes(r.name)) )
       return message.reply("Sorry, you don't have permissions to use this!");
@@ -108,6 +139,7 @@ client.on("message", async message => {
     message.channel.bulkDelete(fetched)
       .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
   }
+
 });
 
 client.login(config.token);
