@@ -158,13 +158,6 @@ client.on("message", async message => {
       .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
   }
 
-       talkedRecently.add(message.author.id);
-        setTimeout(() => {
-          // Removes the user from the set after a minute
-          talkedRecently.delete(message.author.id);
-        }, 999999);
-    }
-
   if(command === "poll") {
   if (!message.member.hasPermission('MANAGE_GUILD') && message.author.id !== '356510829920780289') return message.channels.send('Sorry, you don\'t have permission to create poll!').then(msg => msg.delete({timeout: 10000}));
   if (!args.join(' ')) return message.channel.send('Usage: poll <title>').then(msg => msg.delete({timeout: 10000}));
@@ -193,6 +186,13 @@ client.on("message", async message => {
       collector2.on('collect', r => console.log(`Collected ${r.emoji.name}`));
       collector2.on('end', collected => console.log(`Collected ${collected.size} items`));
 };
+
+       talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 999999);
+    }
 
 
 });
