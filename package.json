@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Description here",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "discord.js": "^11.3.2",
