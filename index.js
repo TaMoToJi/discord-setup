@@ -32,7 +32,7 @@ client.on('message', message => { // Message Event
   
   if (message.author.bot) return undefined; // Bot doesn't reply to itself
   
-  let message = message.content.toLowerCase(); // Message's content to lowercase letter
+  let msg = message.content.toLowerCase(); // Message's content to lowercase letter
   let args = message.content.slice(prefix.length).trim().split(' '); // Arguments 
   let command = args.shift().toLowerCase(); // Shift arguments to lower case
   
