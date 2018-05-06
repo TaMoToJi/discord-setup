@@ -1,3 +1,4 @@
+const figlet = require('figlet');
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
@@ -25,6 +26,15 @@ client.on("message", async message => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   
+  if(command === "ascii") {
+  message.delete(5000);
+  message.react("✅");
+  if(args.join(' ').length > 14) return message.channel.send('Only 14 characters are admitted!') 
+  if (!args.join(' ')) return message.channel.send('Please, provide text to format in ASCII! Usage: ascii <text>').then(msg => msg.delete({timeout: 10000})); 
+    figlet(args.join(' '), (err, data) => {
+      message.channel.send('```' + data + '```')
+    })
+};
   
   if(command === "ping") {
     const m = await message.channel.send("Ping?");
