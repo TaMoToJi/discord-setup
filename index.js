@@ -1,6 +1,23 @@
-const Discord = require('discord.js'); // Discrd.JS package
-const client = new Discord.Client();
-const config = require("./config.json"); // New Discord Client
+const yt = require('ytdl-core');
+const hastebin = require('hastebin-gen');
+const pms = require('parse-ms');
+const info = require('systeminformation');
+const urban = require("urban");
+const sm = require('string-similarity');
+const randomPuppy = require('random-puppy');
+const request = require("request");
+const db = require('quick.db');
+const figlet = require('figlet');
+const economy = require('discord-eco');
+const ms = require("ms");
+const weather = require('weather-js');
+const snek = require('snekfetch');
+const encode = require('strict-uri-encode');
+const superagent = require("superagent");
+const Discord = require("discord.js");
+const moment = require("moment");
+require("moment-duration-format");
+
 const prefix = '//'; // Commands Prefix
 const hook = new Discord.WebhookClient('442566542790492170', '2Bt_y8jugFMVk6nWlbzkW2HrwqMLet5PokbYkLBgESA5abjiQ6p9fIaUry0_NQW6rsW7');
 
@@ -28,22 +45,37 @@ client.on('ready', () => { // Ready Event
   console.log(`Bot is Online | on ${client.guilds.size} `);
 });
 
-client.on('message', message => { // Message Event
+client.on("message", async message => {
+
+  if(message.author.bot) return;
+ 
+       if (talkedRecently.has(message.author.id)) {
+            message.channel.send("**Wait 20 Second Before Getting Typing This Again.** - " + message.author);
+    } else {
+   if(message.content.indexOf(config.prefix) !== 0) return;
+   let mutedrole = message.guild.roles.find("name", "KE-Muted");
+
+  const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase(); 
+  if(command === "meme") {
+   if(message.author.bot) return;
+   if(message.channel.type !=="text") return;
   
-  if (message.author.bot) return undefined; // Bot doesn't reply to itself
-  
-  let msg = message.content.toLowerCase(); // Message's content to lowercase letter
-  let args = message.content.slice(prefix.length).trim().split(' '); // Arguments 
-  let command = args.shift().toLowerCase(); // Shift arguments to lower case
-  
-  try {
-    let commands = require(`./commands/${command}.js`);
-    commands.run(client, message, args);
-  } catch (e) {
-    console.log(e.stack)
-  } finally {
-    console.log(command)
-  }
-});
+   randomPuppy('memes')
+  .then(url => {
+      const embed = new Discord.RichEmbed()
+        .setTimestamp()
+        .setImage(url)
+        .setColor('RANDOM')
+        message.channel.send({ embed });
+  })
+}
+
+       talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          talkedRecently.delete(message.author.id);
+        }, 8000);
+    }
 
 client.login(config.token); // My token is hidden
