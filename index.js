@@ -78,4 +78,6 @@ client.on("message", async message => {
         }, 8000);
     }
 
+});
+
 client.login(config.token); // My token is hidden
