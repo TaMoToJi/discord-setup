@@ -17,6 +17,14 @@ client.on("message", async message => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   
+  
+  if(command === "ping") {
+const newemb = new Discord.RichEmbed()
+.setColor(0xFFBF00)
+.addField('```Ping```', new Date().getTime() - message.createdTimestamp + " ms ")
+message.channel.send({embed: newemb})
+}
+
   if(command === "gif") {
   if (message.author.bot) return;
   if (message.channel.type == "dm") return;
