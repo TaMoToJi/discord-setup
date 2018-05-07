@@ -49,7 +49,7 @@ client.on("message", async message => {
   .setDescription(`${question}`)
   .setFooter(`Poll Started By: ${message.author.username}`, `${message.author.avatarURL}`)
 
-  message.channel.send({embed})
+  message.channel.send(embed)
   message.react('👍')
   .then(() => message.react('👎'))
   .then(() => message.react('🤷'))
