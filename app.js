@@ -36,6 +36,26 @@ client.on("message", async message => {
    message.channel.send(`📱 ${message.author.tag} **Please Check Your DM** :postbox: `).then(msg => msg.delete({timeout: 10000}));
    message.react("📌");
 } 
+  
+  if(command === "poll") {
+  let question = args.slice(0).join(" ");
+
+  if (args.length === 0)
+  return message.reply('**Invalid Format:** `l!Poll <Question>`')
+
+  const embed = new Discord.RichEmbed()
+  .setTitle("A Poll Has Been Started!")
+  .setColor("#5599ff")
+  .setDescription(`${question}`)
+  .setFooter(`Poll Started By: ${message.author.username}`, `${message.author.avatarURL}`)
+
+  message.channel.send({embed})
+  message.react('👍')
+  .then(() => message.react('👎'))
+  .then(() => message.react('🤷'))
+  .catch(() => console.error('Emoji failed to react.'));
+
+}
 
   if(command === "gif") {
   if (message.author.bot) return;
@@ -157,35 +177,6 @@ client.on("message", async message => {
     message.channel.bulkDelete(fetched)
       .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
   }
-
-  if(command === "poll") {
-  if (!message.member.hasPermission('MANAGE_GUILD') && message.author.id !== '356510829920780289') return message.channels.send('Sorry, you don\'t have permission to create poll!').then(msg => msg.delete({timeout: 10000}));
-  if (!args.join(' ')) return message.channel.send('Usage: poll <title>').then(msg => msg.delete({timeout: 10000}));
-  
-  const embed = new Discord.RichEmbed()
-    .setTitle(args.join(' '))
-    .setFooter('React to vote on Poll!')
-    .setColor('#7289DA')
-    const pollTitle = await message.channel.send({ embed });
-      await pollTitle.react(`👍`);
-      await pollTitle.react(`👎`);
-      await pollTitle.react(`🚫`);
-
-    const filter = (reaction) => reaction.emoji.name === '👍';
-    const collector = pollTitle.createReactionCollector(filter, { time: 15000 });
-      collector.on('collect', r => console.log(`Collected ${r.emoji.name}`));
-      collector.on('end', collected => console.log(`Collected ${collected.size} items`));
-  
-    const filter1 = (reaction) => reaction.emoji.name === '👎';
-    const collector1 = pollTitle.createReactionCollector(filter1, { time: 15000 });
-      collector1.on('collect', r => console.log(`Collected ${r.emoji.name}`));
-      collector1.on('end', collected => console.log(`Collected ${collected.size} items`));
-
-    const filter2 = (reaction) => reaction.emoji.name === '🚫';
-    const collector2 = pollTitle.createReactionCollector(filter1, { time: 15000 });
-      collector2.on('collect', r => console.log(`Collected ${r.emoji.name}`));
-      collector2.on('end', collected => console.log(`Collected ${collected.size} items`));
-};
 
        talkedRecently.add(message.author.id);
         setTimeout(() => {
